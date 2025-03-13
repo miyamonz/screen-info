@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>デバイス情報リアルタイム表示</title>
+    <style>
+      body {
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+      .container {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+      }
+      h1 {
+        color: #333;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .info-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .info-table th,
+      .info-table td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+      }
+      .info-table th {
+        background-color: #f8f8f8;
+        font-weight: bold;
+        width: 60%;
+      }
+      .value {
+        font-family: monospace;
+        font-weight: bold;
+        color: #007bff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>デバイス情報</h1>
+
+      <table class="info-table">
+        <tr>
+          <th>デバイスピクセル比</th>
+          <td id="device-pixel-ratio" class="value">-</td>
+        </tr>
+        <tr>
+          <th>画面の幅</th>
+          <td id="screen-width" class="value">-</td>
+        </tr>
+        <tr>
+          <th>画面の高さ</th>
+          <td id="screen-height" class="value">-</td>
+        </tr>
+        <tr>
+          <th>画面の幅（有効領域）</th>
+          <td id="avail-screen-width" class="value">-</td>
+        </tr>
+        <tr>
+          <th>画面の高さ（有効領域）</th>
+          <td id="avail-screen-height" class="value">-</td>
+        </tr>
+        <tr>
+          <th>ウインドウの幅</th>
+          <td id="window-width" class="value">-</td>
+        </tr>
+        <tr>
+          <th>ウインドウの高さ</th>
+          <td id="window-height" class="value">-</td>
+        </tr>
+      </table>
+    </div>
+
+    <script>
+      // デバイス情報を更新する関数
+      function updateDeviceInfo() {
+        // 現在の時刻を取得
+        const now = new Date();
+        const timeString = now.toLocaleTimeString();
+
+        // デバイスピクセル比
+        document.getElementById("device-pixel-ratio").textContent =
+          window.devicePixelRatio.toFixed(2);
+
+        // 画面サイズ
+        document.getElementById("screen-width").textContent =
+          window.screen.width + " px";
+        document.getElementById("screen-height").textContent =
+          window.screen.height + " px";
+
+        // 有効画面サイズ
+        document.getElementById("avail-screen-width").textContent =
+          window.screen.availWidth + " px";
+        document.getElementById("avail-screen-height").textContent =
+          window.screen.availHeight + " px";
+
+        // ウィンドウサイズ
+        document.getElementById("window-width").textContent =
+          window.innerWidth + " px";
+        document.getElementById("window-height").textContent =
+          window.innerHeight + " px";
+      }
+
+      // ページ読み込み時に更新
+      updateDeviceInfo();
+
+      // ウィンドウサイズが変更されたときに更新
+      window.addEventListener("resize", updateDeviceInfo);
+
+      // 1秒ごとに更新
+      setInterval(updateDeviceInfo, 1000);
+    </script>
+  </body>
+</html>
